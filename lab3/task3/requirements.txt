@@ -1,0 +1,3 @@
+joblib
+pymongo[srv]
+more_itertools

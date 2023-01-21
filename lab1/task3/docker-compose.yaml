@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  json-server:
+    build:
+      context: "."
+      dockerfile: "./Dockerfile"
+    entrypoint: ["json-server", "--watch", "db.json", "--host", "0.0.0.0"]
+    ports:
+      - 3000:3000

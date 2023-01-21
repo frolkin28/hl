@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  lite-server:
+    build:
+      context: "../task2"
+      dockerfile: "./Dockerfile"
+    entrypoint: ["lite-server", "-c", "bs-config.json"]
+    deploy:
+      mode: replicated
+      replicas: 3
+    expose:
+      - "3000"
+
+  json-server:
+    build:
+      context: "../task3"
+      dockerfile: "./Dockerfile"
+    entrypoint: ["json-server", "--watch", "db.json", "--host", "0.0.0.0", "--port", "3000"]
+    deploy:
+      mode: replicated
+      replicas: 3
+    expose:
+      - "3000"
+
+  nginx:
+    image: nginx
+    ports:
+      - 8000:8000
+    depends_on:
+      - lite-server
+      - json-server
